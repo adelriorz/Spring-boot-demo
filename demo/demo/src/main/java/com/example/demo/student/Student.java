@@ -1,8 +1,30 @@
 package com.example.demo.student;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+@Entity // For Hibernate
+@Table // For the Table in our DB
 public class Student {
+
+    @Id // Specifies the primary key of an entity.
+    /*
+    * Defines a primary key generator that may be referenced by name when a generator element
+    * is specified for the GeneratedValue annotation. A sequence generator may be specified
+    *  on the entity class or on the primary key field or property.
+    * The scope of the generator name is global to the persistence unit (across all generator types).
+    * */
+    @SequenceGenerator(
+            name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+    )
+
+    // Provides for the specification of generation strategies for the values of primary keys.
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE, // Recommended for Postgres
+            generator = "student_sequence"
+    )
 
     private Long id;
     private String name;
