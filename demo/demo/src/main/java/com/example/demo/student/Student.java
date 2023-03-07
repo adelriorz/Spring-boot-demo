@@ -3,6 +3,8 @@ package com.example.demo.student;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
+
 @Entity // For Hibernate
 @Table // For the Table in our DB
 public class Student {
@@ -28,22 +30,22 @@ public class Student {
 
     private Long id;
     private String name;
+
+    @Transient // Specifies that the property or field is not persistent.
     private Integer age;
     private LocalDate dateOfBirth;
     private String email;
 
     public Student(){}
-    public Student(Long id, String name, Integer age, LocalDate dateOfBirth, String email) {
+    public Student(Long id, String name, LocalDate dateOfBirth, String email) {
         this.id = id;
         this.name = name;
-        this.age = age;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
     }
 
-    public Student(String name, Integer age, LocalDate dateOfBirth, String email) {
+    public Student(String name, LocalDate dateOfBirth, String email) {
         this.name = name;
-        this.age = age;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
     }
@@ -65,8 +67,8 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
-    }
+        return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+    } // Years will be calculated on real time instead of being storage.
 
     public void setAge(Integer age) {
         this.age = age;
@@ -90,7 +92,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Student{\n" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +

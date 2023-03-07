@@ -1,9 +1,7 @@
 package com.example.demo.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -25,8 +23,14 @@ public class StudentController {
     /*The method GetMapping allows us to create an endpoint, instead of the 'Whitelabel'. This route
      * will redirect to the JSON given. It's important to define the route ("/").
      * This method goes in the 'StudentService' class as we try to encapsulate as much as we can*/
-    @GetMapping
+    @GetMapping // Retrieving students from DB
     public List<Student> getStudents(){
         return studentService.getStudents(); // We are using the N-tier design pattern.
     }
+
+    @PostMapping // Retrieve student that comes from the client
+    public void registerNewStudent(@RequestBody Student student){
+        studentService.addNewStudent(student);
+    }
+
 }
