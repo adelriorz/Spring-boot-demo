@@ -1,7 +1,7 @@
 # Spring-boot-demo
 Java Spring Boot demo application with Postman. Implemented PUT, POST, GET and DELETE methods.
 
-# In case you need to check if port 8080 is busy for localhost:
+n case you need to check if port 8080 is busy for localhost:
 ```
 netstat -aon | findstr 9260
 ```
